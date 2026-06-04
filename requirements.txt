@@ -1,7 +1,7 @@
 streamlit
 st-styled
 langchain-huggingface==1.2.2
-langchain-community==0.4.2
+langchain-community
 langchain-groq
 chromadb==0.5.3
 pypdf==6.12.2
