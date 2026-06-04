@@ -10,8 +10,8 @@ from generate_rag import query_rag, embeddings_model
 st.set_page_config(page_title="Dynamic AI Assistant", layout="centered")
 st_yled.init()
 
-st_yled.title("🤖 Shared RAG Assistant", color="#FF4655", font_weight="800")
-st_yled.caption("Upload any PDF and start chatting instantly.", color="#A0A0A0")
+st.title("🤖 Shared RAG Assistant")
+st.caption("Upload any PDF and start chatting instantly.")
 
 # 1. Add a File Uploader Component to the sidebar or main page
 uploaded_file = st.file_uploader("Drop your study guide or PDF here", type=["pdf"])

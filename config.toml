@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#FF4B4B" # Changes the color of buttons and accents
+backgroundColor = "#0E1117" # Modern dark background
+secondaryBackgroundColor = "#262730" # Slightly lighter dark for sidebars/chat bubbles
+textColor = "#FAFAFA"
+font = "sans serif" # You can also use "serif" or "monospace"

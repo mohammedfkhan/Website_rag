@@ -7,11 +7,12 @@ from langchain_groq import ChatGroq
 # Initialize the models outside the function so they stay cached in memory
 embeddings_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-llm = ChatGroq(
-    model="llama-3.1-8b-instant",
-    # 2. Use a placeholder name here! NEVER put the "gsk_" key in this file.
-    api_key=st.secrets["GROQ_API_KEY"] 
-)
+@st.cache_resource
+def get_llm():
+    return ChatGroq(
+        model="llama-3.1-8b-instant",
+        api_key=st.secrets["GROQ_API_KEY"]
+    )
 
 # Pass the specific user's database directly into the query function
 def query_rag(query_text: str, user_db):
@@ -31,5 +32,5 @@ def query_rag(query_text: str, user_db):
     Question: {query_text}
     """
     
-    response = llm.invoke(prompt)
+    response = get_llm().invoke(prompt)
     return response.content
