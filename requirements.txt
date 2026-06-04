@@ -3,7 +3,7 @@ st-styled
 langchain-huggingface==1.2.2
 langchain-community==0.4.2
 langchain-groq
-chromadb==1.5.9
+chromadb==0.5.3
 pypdf==6.12.2
 langchain-text-splitters==1.1.2
 sentence-transformers
