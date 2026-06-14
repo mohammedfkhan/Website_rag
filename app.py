@@ -4,6 +4,7 @@ import st_yled
 from pypdf import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
+from chromadb.api.client import SharedSystemClient
 
 from generate_rag import query_rag, embeddings_model
 
@@ -34,7 +35,19 @@ if uploaded_file and st.session_state.vector_db is None:
         # Split the text into clean chunks
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
         chunks = text_splitter.split_text(text)
-        
+
+    if not chunks:
+        st.error(
+            "Couldn't extract any text from this PDF. It may be a scanned or "
+            "image-only document. Please upload a PDF that contains selectable text."
+        )
+        st.stop()
+
+    with st.spinner("Processing document on-the-fly..."):
+        # Drop any stale in-memory Chroma system left over from a previous rerun
+        # so we don't reuse a stopped client ("Could not connect to tenant").
+        SharedSystemClient.clear_system_cache()
+
         # Build an EPHEMERAL (in-memory) Chroma store just for this session
         st.session_state.vector_db = Chroma.from_texts(
             texts=chunks, 
