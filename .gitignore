@@ -16,3 +16,4 @@ __pycache__/
 # Environment variables / Keys
 .env
 .streamlit/secrets.toml
+.DS_Store
