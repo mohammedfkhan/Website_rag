@@ -1,7 +1,6 @@
 import os
 import streamlit as st # <-- 1. Added the Streamlit import
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
 
 # Initialize the models outside the function so they stay cached in memory

@@ -3,8 +3,7 @@ import time
 import st_yled
 from pypdf import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
-from chromadb.api.client import SharedSystemClient
+from langchain_core.vectorstores import InMemoryVectorStore
 
 from generate_rag import query_rag, embeddings_model
 
@@ -44,12 +43,8 @@ if uploaded_file and st.session_state.vector_db is None:
         st.stop()
 
     with st.spinner("Processing document on-the-fly..."):
-        # Drop any stale in-memory Chroma system left over from a previous rerun
-        # so we don't reuse a stopped client ("Could not connect to tenant").
-        SharedSystemClient.clear_system_cache()
-
-        # Build an EPHEMERAL (in-memory) Chroma store just for this session
-        st.session_state.vector_db = Chroma.from_texts(
+        # Build an EPHEMERAL (in-memory) vector store just for this session
+        st.session_state.vector_db = InMemoryVectorStore.from_texts(
             texts=chunks, 
             embedding=embeddings_model
         )
